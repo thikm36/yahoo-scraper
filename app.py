@@ -18,7 +18,7 @@ col1, col2 = st.columns(2)
 with col1:
     start_page = st.number_input("開始ページ", min_value=1, value=1)
 with col2:
-    end_page = st.number_input("終了ページ", min_value=1, value=50)
+    end_page = st.number_input("終了ページ", min_value=1, value=5)
 
 run_button = st.button("スクレイピング開始！")
 
