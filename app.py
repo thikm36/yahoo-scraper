@@ -11,7 +11,7 @@ st.set_page_config(page_title="ヤフオクライバルチェックツール", p
 st.title("🏺 ヤフオクスクレイパー")
 
 # 💡 キーワード入力欄
-keyword = st.text_input( "ハイゼットトラック S500 マッドガード")
+keyword = st.text_input( "検索キーワードを入力")
 
 # 範囲指定
 col1, col2 = st.columns(2)
