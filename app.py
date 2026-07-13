@@ -14,7 +14,7 @@ st.title("ヤフオクスクレイパー")
 if 'results_df' not in st.session_state:
     st.session_state.results_df = None
 
-keyword = st.text_input("検索キーワード", "アガベ 鉢")
+keyword = st.text_input("検索キーワード", "ハイゼットトラック S500 マッドガード")
 max_pages = st.number_input("取得ページ数（1ページ100件）", min_value=1, max_value=5, value=1)
 run_button = st.button("スクレイピング開始！")
 
