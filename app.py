@@ -59,13 +59,22 @@ if run_button:
             for item in items:
                 title_tag = item.select_one('.Product__titleLink')
                 price_tag = item.select_one('.Product__priceValue')
+                # 💡 ここで送料タグを取得するのを復活させたぜ！
+                postage_tag = item.select_one('.Product__postage')
                 img_tag = item.select_one('.Product__imageData')
                 link_tag = item.select_one('a')
                 bonus_tag = item.select_one('.Product__bonus')
                 
                 if title_tag and price_tag and link_tag:
+                    # 価格の抽出
                     price_str = price_tag.text.strip().replace('円', '').replace(',', '').replace('即決', '').strip()
                     price_int = int(price_str) if price_str.isdigit() else 0
+                    
+                    # 💡 送料の計算処理を復活
+                    postage_text = postage_tag.text.strip() if postage_tag else ""
+                    shipping_str = "0" if "送料無料" in postage_text else postage_text.replace('＋送料', '').replace('円', '').replace(',', '').strip()
+                    shipping_int = int(shipping_str) if shipping_str.isdigit() else 0
+                    
                     seller_id = bonus_tag.get('data-auction-auc-seller-id', '不明') if bonus_tag else '不明'
                     
                     total_count += 1
@@ -79,6 +88,16 @@ if run_button:
                                 f.write(requests.get(img_url).content)
                         except:
                             pass
+                    
+                    # 💡 ここに送料と合計を追加！
+                    results.append({
+                        "商品名": title_tag.text.strip(), 
+                        "価格": price_int, 
+                        "送料": shipping_int, 
+                        "合計": price_int + shipping_int, 
+                        "出品者ID": seller_id, 
+                        "URL": title_tag['href']
+                    })
                     
                     results.append({"商品名": title_tag.text.strip(), "価格": price_int, "出品者ID": seller_id, "URL": title_tag['href']})
             
